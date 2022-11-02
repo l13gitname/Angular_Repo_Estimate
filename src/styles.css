@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+
+@font-face {
+    font-family: "Prompt-Light";
+    src: local("Prompt-Light"), url(./assets/fonts/Prompt-Light.ttf) format("truetype");
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+*{
+    font-family: Prompt-Light;
+    font-size: large;
+}
+
+.container{
+    display: block;
+    max-width: 100%;
+    min-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box{
+    display: block;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+table,tr,td,th{
+    border: 1px solid #000000;
+    border-collapse: collapse;
+    padding: 5px;
+}
+

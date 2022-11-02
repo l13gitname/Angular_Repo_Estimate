@@ -1,0 +1,1466 @@
+<div *ngIf="fAccType=='Checker' || fAccType=='Maker'" class="container" [ngStyle]="{'display': Global.IsFullPic?'none':'block'}">
+    <div class="box">
+        <div style="display:grid;grid-template-columns: 450px 350px;">
+            <div style="display:grid;grid-template-columns: 100px auto">
+                <div>
+                    <label>เลขที่สัญญา</label>
+                </div>
+                <div>
+                    <input type="text" [(ngModel)]="fContractNo" disabled>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns: 100px auto">
+                <div>
+                    <label>ทะเบียนรถ</label>
+                </div>
+                <div>
+                    <input type="text" [(ngModel)]="fCarRegistration" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+           <mat-accordion>
+                <mat-expansion-panel #estmate>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            ประเมินสภาพรถ
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            ข้อมูลการประเมินสภาพรถ
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="container">
+                        <div id="printPDF">
+                            <table style="margin: 0 auto;">
+                                <colgroup>
+                                    <col span="1" class="col1">
+                                    <col span="1" class="col2">
+                                    <col span="1" class="col3">
+                                    <col span="1" class="col4">
+                                    <col span="1" class="col5">
+                                    <col span="1" class="col6">
+                                    <col span="1" class="col7">
+                                    <col span="1" class="col8">
+                                    <col span="1" class="col9">
+                                </colgroup>
+
+                                <tr>
+                                    <th colspan="3" >
+                                        <img src="../../assets/Picture/Untitled.png">
+                                    </th>
+                                    <th colspan="4" >
+                                        <div>แบบรับรถ/ตรวจสภาพ</div>
+                                    </th>
+                                    <td colspan="2" >
+                                        <div class="T1 row">
+                                            <div>
+                                                <label>จุดจอดโกดัง</label>
+                                            </div>
+                                            <div>
+                                                <!-- <input type="text" [(ngModel)]="Global.CarCheckerMaster.Warehouse_Stop"> -->
+                                                <select [(ngModel)]="Global.CarCheckerMaster.Warehouse_Stop" style="width: 95%;" [ngStyle]="{'background-color': fIsWarehouse_Stop?'#ff0000':'#ffffff'}" [disabled]="fIsHistory">
+                                                    <option [value]=""></option>
+                                                    <option *ngFor="let p of Global.RepoStore" [value]="p">{{p}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="T1 noticon">
+                                            <div>
+                                                <label>วันที่ยึด</label>
+                                            </div>
+                                            <div>
+                                                <input type="date" [(ngModel)]="Global.CarCheckerMaster.Occupy_Date" [ngStyle]="{'background-color': fIsOccupy_Date?'#ff0000':'#ffffff'}" [disabled]="fIsHistory">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="row">
+                                            <div style="display: grid;grid-template-columns: 140px auto auto auto;margin-top: 10px;">
+                                                <div>
+                                                    <label>สัญญาเช่าซื้อเลขที่</label>
+                                                </div>
+                                                <div>
+                                                    <input type="text" [(ngModel)]="Global.CarCheckerMaster.Contact_No" disabled>
+                                                </div>
+                                                <div>
+                                                    <label>กุญแจ</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Have_Key=='1'" (change)="Toggle($event, 'Have_Key', '1')" [disabled]="fIsHistory">
+                                                    <label>มี</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Have_Key=='0'" (change)="Toggle($event, 'Have_Key', '0')" [disabled]="fIsHistory">
+                                                    <label>ไม่มี</label>
+                                                </div>
+                                                <div>
+                                                    <label>ป้ายภาษี</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Tax_Sign=='1'" (change)="Toggle($event, 'Tax_Sign', '1')" [disabled]="fIsHistory">
+                                                    <label>มี</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Tax_Sign=='0'" (change)="Toggle($event, 'Tax_Sign', '0')" [disabled]="fIsHistory">
+                                                    <label>ไม่มี</label>
+                                                </div>
+                                            </div>
+                                            <div style="margin-top: 10px;display: grid; grid-template-columns: auto auto;">
+                                                <div style="display: grid;grid-template-columns: 100px auto;">
+                                                    <div>
+                                                        <label>ยี่ห้อรถจักรยานยนต์</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Motor_Bike_Brand" disabled>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 25px auto;">
+                                                    <div class="label">
+                                                        <label>สี</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Color" disabled>
+                                                    </div>  
+                                                </div>
+                                                <!-- <input type="checkbox" [checked]="Global.CarCheckerMaster.Motor_Bike_Brand=='Honda'" (change)="Checked($event, 'Moter_Bike_Brand', 'Honda')" disabled>
+                                                <label>ฮอนด้า</label>&nbsp;&nbsp;&nbsp;
+                                                <input type="checkbox" [checked]="Global.CarCheckerMaster.Motor_Bike_Brand=='Yamaha'" (change)="Checked($event, 'Moter_Bike_Brand', 'Yamaha')" disabled>
+                                                <label>ยามาฮ่า</label>&nbsp;&nbsp;&nbsp;
+                                                <input type="checkbox" [checked]="Global.CarCheckerMaster.Motor_Bike_Brand=='Suzuki'" (change)="Checked($event, 'Moter_Bike_Brand', 'Suzuki')" disabled>
+                                                <label>ซูซูกิ</label>&nbsp;&nbsp;
+                                                <input type="checkbox" [checked]="Global.CarCheckerMaster.Motor_Bike_Brand=='Kawasaki'" (change)="Checked($event, 'Moter_Bike_Brand', 'Kawasaki')" disabled>
+                                                <label>คาวาซากิ</label>&nbsp;&nbsp;
+                                                <input type="checkbox" [checked]="Global.CarCheckerMaster.Motor_Bike_Brand==''" (change)="Checked($event, 'Moter_Bike_Brand', '')" disabled>
+                                                <label>ยี่ห้ออื่นๆ(ระบุ)</label>&nbsp;&nbsp;&nbsp;
+                                                <input *ngIf="Global.CarCheckerMaster.Motor_Bike_Brand==''" 
+                                                        type="text" [(ngModel)]="Global.CarCheckerMaster.Motor_Bike_Brand"> -->
+                                            </div>
+
+                                            <div style="display: grid;grid-template-columns: auto auto;margin-top: 10px;">
+                                                <div style="display: grid;grid-template-columns: 40px auto;">
+                                                    <div class="label">
+                                                        <label>รุ่น</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Model" disabled>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 60px auto;">
+                                                    <div class="label">
+                                                        <label>เลขเครื่อง</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Serial_Number" disabled>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div style="display: grid;grid-template-columns: auto auto ;margin-top: 10px;">
+                                                <div style="display: grid;grid-template-columns: 40px auto;">
+                                                    <div>
+                                                        <label>เลขถัง</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Tank_Number" disabled>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 80px auto;">
+                                                    <div class="label">
+                                                        <label >เลขทะเบียน</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" [(ngModel)]="Global.CarCheckerMaster.Registration_Number" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display: grid;grid-template-columns: auto auto auto;margin-top: 10px;">
+                                                <div style="display: grid;grid-template-columns: 100px auto;">
+                                                    <div class="label">
+                                                        <label>แผ่นป้ายทะเบียน</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" [checked]="Global.CarCheckerMaster.License_Plate=='1'" (change)="Toggle($event, 'License_Plate', '1')" [disabled]="fIsHistory">
+                                                        <label>มี</label>&nbsp;&nbsp;&nbsp;
+                                                        <input type="checkbox" [checked]="Global.CarCheckerMaster.License_Plate=='0'" (change)="Toggle($event, 'License_Plate', '0')" [disabled]="fIsHistory">
+                                                        <label>ไม่มี</label>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 50px auto;">
+                                                    <div class="label">
+                                                        <label>สภาพ</label>
+                                                    </div>
+                                                    <div style="display: grid;grid-template-columns: auto 20px;">
+                                                       <div>
+                                                            <input type="text" style="background-color: #e7ff62;text-align: center;" [(ngModel)]="Global.CarCheckerMaster.Condition" disabled>
+                                                       </div>
+                                                       <div>
+                                                            <label>%</label>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 80px auto;">
+                                                    <div class="label">
+                                                        <label>ราคาประเมิน</label>
+                                                    </div>
+                                                    <div style="display: grid;grid-template-columns: auto 30px;">
+                                                        <div>
+                                                            <input type="number" style="text-align: end;" [(ngModel)]="Global.CarCheckerMaster.Appraisal_Price" [disabled]="fIsHistory">
+                                                        </div>
+                                                        <div>
+                                                            <label>บาท</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display: grid;grid-template-columns: 50px auto auto auto ;margin-top: 10px;margin-bottom: 10px;">
+                                                <div>
+                                                    <label>เลขไมล์</label>
+                                                </div>
+                                                <div>
+                                                    <input type="number" style="text-align: end;" [(ngModel)]="Global.CarCheckerMaster.Mileage" (ngModelChange)="onMileChhange()"  [ngStyle]="{'background-color': fIsMile?'#ff0000':'#ffffff'}" [disabled]="fIsHistory">
+                                                </div>
+                                                <div>
+                                                    <label>สตาร์ท</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Can_Start=='1'" (change)="Toggle($event, 'Can_Start', '1')" [disabled]="fIsHistory">
+                                                    <label>ติด</label>&nbsp;&nbsp;&nbsp;
+                                                    <input type="checkbox" [checked]="Global.CarCheckerMaster.Can_Start=='0'" (change)="Toggle($event, 'Can_Start', '0')" [disabled]="fIsHistory">
+                                                    <label>ไม่ติด</label>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 100px auto;">
+                                                    <div >
+                                                        <label>วันที่ไถ่ถอน</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="date" [(ngModel)]="Global.CarCheckerMaster.Redemption_Date" [disabled]="fIsHistory">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr> 
+                                    <th colspan="3">
+                                        <label>หมายเหตุ</label>
+                                    </th>
+                                    <td colspan="6">
+                                        <span>หมายเหตุ สถานะ  8. =มีสมบูรณ์ครบถ้วน 7=มีตำหนิ เป็นรอยขีดข่วน 6.ดัดแปลงสภาพอะไหล่,5 =ฉีกขาด ชำรุด,4 =แตก หัก, 3 =คด งอ เบี้ยว  2 =สัปเปลี่ยน ไม่ตรงรุ่น, X =ไม่มีในรุ่นนี้   0= สุญหาย ไม่มี ถอดออก,      **เลขไมล์ (Kms) สถานะ ดังนี้    9.= 0-1,000(Kms)           8.=>1,000-5,000(Kms),                7.=>5,000-10,000 (Kms), 6.=>10,000-20,000 (Kms),  5.=>20,000-50,000 (Kms).    4.=>50,000 (Kms),       </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="2">
+                                        <label>รายการอะไหล่</label>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>สภาพ</label>
+                                    </th>
+                                    <th colspan="2">
+                                        <label>รายการอะไหล่</label>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>สภาพ</label>
+                                    </th>
+                                    <th colspan="2">
+                                        <label>รายการอะไหล่</label>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>สภาพ</label>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>1.ชุดเลขไมล์</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>4.10</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>เหล็กปลายแฮนด์ซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Steel_Bar_End_Left"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Steel_Bar_End_Left" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ฝาครอบข้างขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Side_Cover"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Side_Cover" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>1.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดเรือนไมล์เฟืองวัดรอบ</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Speed_Moter_Gear_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Speed_Moter_Gear_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>4.11</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>เหล็กปลายแฮนด์ขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Steel_Bar_End_Right"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Steel_Bar_End_Right" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังลมซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Windshield"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Windshield" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>1.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดเรือนไมล์ ดิจิทัล</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Digital_Mileage_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Digital_Mileage_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>4.12</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ปลอกแฮนด์ซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Hand_Grip"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Hand_Grip" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.9</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังลมขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Windshield"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Windshield" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>2.ระบบสตาร์ทเครื่องยนต์</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>4.13</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ปลอกแฮนด์ขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Hand_Grip"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Hand_Grip" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.10</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>สปอยเลอร์ล่าง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Lower_Spoiler"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Lower_Spoiler" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>2.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กุญแจ แบบธรรมดา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Normal_Key"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Normal_Key" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>5. เครื่องยนต์</div>
+                                    </th>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>8. ชุดความปลอดภัย</div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>2.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label class="col2">กุญแจแบบรีโมทฯ</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Remote_Key"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Remote_Key" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ระบบหัวฉีด</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Injection_System"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Injection_System" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดดรัมเบรคหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Break_Drum_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Break_Drum_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>2.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>คันสตาร์ทแบบสตาร์ทเท้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Kick_Starter"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Kick_Starter" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ระบบคาร์บูเรเตอร์</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Carburetor_System"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Carburetor_System" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดดรัมเบรคหลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Break_Drum_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Break_Drum_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>2.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบบสตาร์ทมือไฟฟ้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Electric_Hand_Starter"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Electric_Hand_Starter" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดเสื้อสูบลูกสูบก้านแหวน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Piston_Kit"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Piston_Kit" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดดิสก์/จานเบรคหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Break_Disc_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Break_Disc_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>3.ชุดขับเคลื่อน</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ท่อไอเสีย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Intake"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Intake" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดดิสก์/จานเบรคหลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Break_Disc_Set"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Break_Disc_Set" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>วงล้อหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Wheel"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Wheel" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>หม้อน้ำระบายความร้อน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Cooling_Radiator"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Cooling_Radiator" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แตร</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Horn"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Horn" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>วงล้อหลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Wheel"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Wheel" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ระบายความร้อนด้วยพัดลม</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Fan_Cooled"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Fan_Cooled" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กระจกมองหลังซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Rear_View_Monitor"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Rear_View_Monitor" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ยางนอกล้อหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Tire"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Tire" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ระบายความร้อนด้วยอากาศ</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Air_Cooled"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Air_Cooled" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กระจกมองหลังขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Rear_View_Monitor"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Rear_View_Monitor" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ยางนอกล้อหลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Tire"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Tire" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>5.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ถังน้ำมัน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Oil_Tank"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Oil_Tank" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>มือเบรคซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Hand_Break"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Hand_Break" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบบล้อแม็กหน้า-หลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Alloy_Wheels_Front_Rear"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Alloy_Wheels_Front_Rear" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>6.ระบบไฟ</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.9</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>มือเบรคขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Hand_Break"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Hand_Break" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบบซี่ลวด หน้า-หลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Wire_Spokes_Front_Back"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Wire_Spokes_Front_Back" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โคมไฟหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Lamp"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Lamp" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.10</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ล็อคเบรคมือ</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Hand_Break_Lock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Hand_Break_Lock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบบโซ่ สเตอร์หน้า-หลัง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Chain_Type_Sprocket_Front_Back"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Chain_Type_Sprocket_Front_Back" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ไฟท้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Tail_Light"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Tail_Light" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.11</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>คันเหยียบเบรคเท้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Foot_Break_Pedal"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Foot_Break_Pedal" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังโซ่ล่างบน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Cover_Lower_Chain"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Cover_Lower_Chain" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ไฟเลี้ยวหน้าซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Front_Turn_Signal"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Front_Turn_Signal" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.12</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>มือครัช</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Hand_Clutch"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Hand_Clutch" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.9</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบบสายพานขับเคลื่อน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Belt_Drive"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Belt_Drive" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ไฟเลี้ยวหน้าขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Front_Turn_Signal"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Front_Turn_Signal" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.13</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>เหล็กท้ายเบาะ(เหล็กกันตก)</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Fall_Break_Protection"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Fall_Break_Protection" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.10</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>คันเกียร์</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Gear_Lever"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Gear_Lever" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ไฟเลี้ยวหลังซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Rear_Turn_Signal"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Rear_Turn_Signal"  (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.14</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ที่พักเท้าหน้าซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Front_Footrest"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Front_Footrest" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>3.11</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>สวิงอาร์มหลัง (เฟรม)</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Swing_Arm"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Swing_Arm" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ไฟเลี้ยวหลังขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Rear_Turn_Signal"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Rear_Turn_Signal" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.15</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ที่พักเท้าหน้าขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Front_Footrest"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Front_Footrest" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>4.ระบบกันสะเทือน</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แบตเตอรี่</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Battery"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Battery" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.16</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ขาพักเท้าหลังซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Back_Footrest"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Back_Footrest" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โช๊คหน้าซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Left_Shock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Left_Shock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กล่องควบคุมระบบไฟฟ้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Electrical_Control_Box"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Electrical_Control_Box" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.17</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ขาพักเท้าหลังขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Back_Footrest"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Back_Footrest" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โช๊คหน้าขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Right_Shock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Front_Right_Shock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>6.9</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดประกับมือคันเร่ง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Throttle_Grip_Kit"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Throttle_Grip_Kit" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.18</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ยางพักเท้าหน้าซ้าย ขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rubber_Footrest_Front"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rubber_Footrest_Front" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โช๊คหลังซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Left_Shock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Left_Shock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>7.ชุดสี</div>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.19</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ยางพักเท้าหลังซ้าย ขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rubber_Footrest_Back"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rubber_Footrest_Back" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โช๊คหลังขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Right_Shock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Right_Shock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.1</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังโคลนล้อหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Front_Wheel_Fender"> -->
+                                        <select  [(ngModel)]="Global.CarCheckerInfo.Front_Wheel_Fender" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.20</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กล่อง U-BOX</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.U_Box "> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.U_Box" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>โช๊คเดี่ยว</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Single_Shock"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Single_Shock" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.2</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังโคลนท้ายติดป้ายทะเบียน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Fender_With_License_Plate"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Fender_With_License_Plate" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.21</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>กล่องเอนกประสงค์</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Multipurpose_Box"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Multipurpose_Box" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แผงคอ ล่าง-บน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Mane_Botton_Up"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Mane_Botton_Up" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.3</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>บังโคลนท้ายใน</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Rear_Fender_In"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Rear_Fender_In" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.22</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ขาตั้งข้าง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Side_Stand"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Side_Stand" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.7</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>เบาะนั่ง</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Seat"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Seat" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.4</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>หน้ากาก/บังลมหน้า</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Mask_Face_Shiled"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Mask_Face_Shiled" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.23</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ขาตั้งคู่</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Double_Stand"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Double_Stand" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.8</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แฮนด์ซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Hand"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Hand" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.5</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ชุดสี/ลายสติ๊กเกอร์</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Color_Set_Sticker_Pattern"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Color_Set_Sticker_Pattern" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.ESTIMATE_SCORE_ID">{{p.ESTIMATE_SCORE_ID}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>8.24</label>
+                                    </th>
+                                    <td colspan="1" style="background-color: #e7ff62;">
+                                        <label>จำนวนเลขไมล์__980___</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Number_Miles"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Number_Miles" (ngModelChange)="onCal()" [disabled]="fIsHistory" disabled>
+                                            <option *ngFor="let p of Global.RepoMile" [value]="p.SCORE">{{p.SCORE}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">
+                                        <label>4.9</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>แฮนด์ขวา</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Right_Hand"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Right_Hand" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.SCORE">{{p.SCORE}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="1">
+                                        <label>7.6</label>
+                                    </th>
+                                    <td colspan="1">
+                                        <label>ฝาครอบข้างซ้าย</label>
+                                    </td>
+                                    <th colspan="1">
+                                        <!-- <input type="text" [(ngModel)]="Global.CarCheckerInfo.Left_Side_Cover"> -->
+                                        <select [(ngModel)]="Global.CarCheckerInfo.Left_Side_Cover" (ngModelChange)="onCal()" [disabled]="fIsHistory">
+                                            <option *ngFor="let p of Global.RepoScore" [value]="p.SCORE">{{p.SCORE}}</option>
+                                        </select>
+                                    </th>
+                                    <th colspan="3">
+                
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="background-color: #e7ff62;">
+                                        <div>รายการตรวจสภาพเพิ่มเติม</div>
+                                    </th>
+                                    <th colspan="6">
+                
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="row">
+                                            <div>
+                                                <textarea style="width: 100%;height: 100px;" placeholder="สำรับบันทึกข้อมูลเพิ่มเติม" [(ngModel)]="this.Global.CarCheckerMaster.Remarks" [disabled]="fIsHistory"></textarea>
+                                            </div>
+                                                 
+                                          
+                                            <div [ngStyle]="{'display': fIsClick? 'block': 'none' }">
+                                                <div style="display: grid;grid-template-columns: 2fr 1fr 1fr;margin-top: 10px;">
+                                                    <div style="display: grid;grid-template-columns: 100px auto;">
+                                                        <div>
+                                                            <label>ผู้นำเข้า/ผู้ตรวจสภาพ: </label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" [(ngModel)]="Global.CarCheckerMaster.Maker_Name">
+                                                        </div> 
+                                                    </div>
+                                                    <div style="display: grid;grid-template-columns: 40px auto;">
+                                                        <div>
+                                                            &nbsp;<label>รหัส</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" [(ngModel)]="Global.CarCheckerMaster.Maker_Code">
+                                                        </div>
+                                                    </div>
+                                                    <div style="display: grid; grid-template-columns: 50px auto;">
+                                                        <div>
+                                                            &nbsp;<label>วันที่</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="date" [(ngModel)]="Global.CarCheckerMaster.Maker_Date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="display: grid;grid-template-columns: 2fr 1fr 1fr;margin-top: 10px;">
+                                                    <div style="display: grid;grid-template-columns: 100px auto;">
+                                                        <div>
+                                                            <label>ผู้ตรวจสอบ: </label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" [(ngModel)]="Global.CarCheckerMaster.Checker_Name">
+                                                        </div>
+                                                    </div>
+                                                    <div style="display: grid;grid-template-columns: 40px auto;">
+                                                        <div>
+                                                            &nbsp;<label>รหัส</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" [(ngModel)]="Global.CarCheckerMaster.Checker_Code">
+                                                        </div>
+                                                    </div>
+                                                    <div style="display: grid; grid-template-columns: 50px auto;">
+                                                        <div>
+                                                            &nbsp;<label>วันที่</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="date" [(ngModel)]="Global.CarCheckerMaster.Checker_Date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div style="margin-top: 20px;text-align: end;">
+                            <button *ngIf="!fIsHistory" mat-raised-button color="primary" (click)="onSaveEstimate('1')" [disabled]="(Global.CarCheckerMaster.Status!='1' && (fAccType=='Checker' || Global.CarCheckerMaster.Status !='3')) || fIsCheckerNotCreate">บันทึก</button>
+                            <button *ngIf="!fIsHistory"mat-raised-button color="primary" (click)="onSaveEstimate('2')" style="margin-left: 50px;" [disabled]="(Global.CarCheckerMaster.Status!='1' && (fAccType=='Checker' || Global.CarCheckerMaster.Status !='3'))  || fIsCheckerNotCreate">ส่งงาน</button>
+                            <button *ngIf="fAccType=='Checker' && !fIsHistory" mat-raised-button color="primary" (click)="onSaveEstimate('3')" style="margin-left: 50px;" [disabled]="Global.CarCheckerMaster.Status!='2'  || fIsCheckerNotCreate">ตีกลับ</button>
+                            <button *ngIf="fAccType=='Checker' && !fIsHistory" mat-raised-button color="primary" (click)="onSaveEstimate('4')" style="margin-left: 50px;" [disabled]="Global.CarCheckerMaster.Status!='2'  || fIsCheckerNotCreate">อณุมัติ</button>
+                            <button mat-raised-button color="primary" (click)="exportPdf()" style="margin-left: 50px;" >ดาวโหลด</button>
+                        </div>
+                    </div>                    
+                </mat-expansion-panel>
+
+                <mat-expansion-panel #picture >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            อัพโหลดรูปภาพ
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            อัพโหลดรูปภาพ (ขั้นตํ่า 2 รูป)
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <div *ngFor="let p of fPicture;let i=index" style="display: grid;grid-template-columns: 1fr 1.5fr 1fr 1fr ;margin-top: 10px;">
+                            <div >
+                                <!-- <img (click)="onFullPic(i)" style="width: 100px;height: 100px"> -->
+                                <img (click)="onFullPic(i)" [src]="p.Estimate_Picture_Str" style="width: 100px;height: 100px">
+                            </div>
+                            <div>
+                                <div>
+                                    <label>คำบรรยาย</label>
+                                </div>
+                                <!-- <input type="text" [(ngModel)]="p"> -->
+                                <!-- <input type="text" [(ngModel)]="p.Estimate_Picture_Label"> -->
+                                <select [(ngModel)]="p.Estimate_Picture_Label" style="width: 200px;margin-top: 20px;" (ngModelChange)="onCheckType()" [disabled]="p.IsUpdate">
+                                    <option value=""></option>
+                                    <option *ngFor="let m of fPictureType;" [value]="m">{{m}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!fIsHistory">
+                                <input type="file" accept="image/*" capture="environment" (change)="readURLIndex($event,i);">
+                                <!-- <input type="file" [(ngModel)]="p.pic" (change)="readURLIndex($event,i);"> -->
+                            </div>
+                            <div *ngIf="!fIsHistory">
+                                <div>
+                                    <button mat-raised-button color="primary" (click)="deleteFile(i)">ลบ</button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button color="primary" style="margin-top: 20px;" (click)="savePic(i)">บันทึก</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="fPicCount<6 && !fIsHistory" style="margin-top: 10px;">
+                            <button mat-raised-button color="primary" style="width: 90%;" (click)="addFile()">เพิ่ม</button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>  
+           </mat-accordion>
+        </div>
+    </div>
+</div>
+
+<app-fullpic *ngIf="Global.IsFullPic" [fullPic]="fFullPic"></app-fullpic>
+
+

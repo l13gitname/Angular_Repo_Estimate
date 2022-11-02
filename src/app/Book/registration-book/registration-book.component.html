@@ -1,0 +1,291 @@
+<div>
+    <div class="Search">
+         <h2 style="text-align: center;color: #ff0000;font-size: 30px;">งานเล่มทะเบียน</h2>
+         <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="text-align: center;">
+                        ค้นหาทะเบียนคงค้าง
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div>
+                    <div style="margin-left: 100px;display: grid;grid-template-columns: 2fr 2fr 1fr;" >
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>ค้นหาจากวันที่คงค้าง</mat-label>
+                                <mat-select [(ngModel)]="fSearchDate">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option value="1">1 - 30 วัน</mat-option>
+                                    <mat-option value="2">31 - 60 วัน</mat-option>
+                                    <mat-option value="3">61 - 90 วัน</mat-option>
+                                    <mat-option value="4">91 - 120 วัน</mat-option>
+                                    <mat-option value="5">121 - 180 วัน</mat-option>
+                                    <mat-option value="6">มากกว่า 180 วัน</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>ค้นหาจากดีลเลอร์</mat-label>
+                                <input type="text"
+                                       placeholder="Pick one"
+                                       matInput
+                                       [matAutocomplete]="auto" 
+                                       [(ngModel)]="fSearchDealer"
+                                       (ngModelChange)="onFilter($event)">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let d of fSearchDealerArr" [value]="d">
+                                       {{d}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="primary">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div style="display: grid;grid-template-columns: 4fr 1fr;">
+                        <div>
+
+                        </div>
+                        <div>
+                            <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="onDownload()">
+                                <mat-icon>get_app</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        ค้นหา
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div>
+                    <div style="display: grid;grid-template-columns: 1fr 1fr 1fr;">
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>เลขเครื่องยนต์</mat-label>
+                                <input matInput type="text" [(ngModel)]="Engi_No">
+                                <button *ngIf="Engi_No" matSuffix mat-icon-button aria-label="Clear" (click)="Engi_No=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>เลขตัวถัง</mat-label>
+                                <input matInput type="text" [(ngModel)]="Chassis_No">
+                                <button *ngIf="Chassis_No" matSuffix mat-icon-button aria-label="Clear" (click)="Chassis_No=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>ชื่อ</mat-label>
+                                <input matInput type="text" [(ngModel)]="Cust_Name">
+                                <button *ngIf="Cust_Name" matSuffix mat-icon-button aria-label="Clear" (click)="Cust_Name=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>ชื่อสกุล</mat-label>
+                                <input matInput type="text" [(ngModel)]="Cust_Sname">
+                                <button *ngIf="Cust_Sname" matSuffix mat-icon-button aria-label="Clear" (click)="Cust_Sname=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>เลขทะเบียน</mat-label>
+                                <input matInput type="text" [(ngModel)]="Reg_No">
+                                <button *ngIf="Reg_No" matSuffix mat-icon-button aria-label="Clear" (click)="Reg_No=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>ทะเบียนจังหวัด</mat-label>
+                                <input matInput type="text" [(ngModel)]="Reg_City">
+                                <button *ngIf="Reg_City" matSuffix mat-icon-button aria-label="Clear" (click)="Reg_City=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>วันที่จดทะเบียน</mat-label>
+                                <input matInput type="date" [(ngModel)]="Reg_Date">
+                                <button *ngIf="Reg_Date" matSuffix mat-icon-button aria-label="Clear" (click)="Reg_Date=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>สถานะเล่มทะเบียน</mat-label>
+                                <input matInput type="text" [(ngModel)]="Reg_Status">
+                                <button *ngIf="Reg_Status" matSuffix mat-icon-button aria-label="Clear" (click)="Reg_Status=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>วันที่บันทึกสถานะเล่มทะเบียน</mat-label>
+                                <input matInput type="date" [(ngModel)]="Reg_Rec_Date">
+                                <button *ngIf="Reg_Rec_Date" matSuffix mat-icon-button aria-label="Clear" (click)="Reg_Rec_Date=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field class="example-form-field" appearance="fill">
+                                <mat-label>เลขห้องทะเบียน</mat-label>
+                                <input matInput type="text" [(ngModel)]="Room_No">
+                                <button *ngIf="Room_No" matSuffix mat-icon-button aria-label="Clear" (click)="Room_No=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div style="display: grid;grid-template-columns: 1fr 3fr;">
+                            <div>
+                                <button mat-raised-button color="primary">ค้นหา</button>
+                            </div>
+                            <div>
+                                <button mat-raised-button color="primary" (click)="onClear()">ล้างข้อมูล</button>
+                            </div>
+                        </div>     
+                    </div>
+                
+                    <div>
+                        <mat-card *ngFor="let c of fCardInfo">
+                            <mat-label>สถานะเล่มทะเบียน : {{c.Book_Status}}</mat-label>
+                            <mat-card-title>เลขที่สัญญา : {{c.Contact_No}}</mat-card-title>
+                            <mat-card-subtitle>
+                                <mat-label>ชื่อ : {{c.Cust_Name}}&nbsp;&nbsp;&nbsp;นามสกุล : {{c.Cust_Sname}}</mat-label>
+                                <mat-label>สาขา : {{c.Branch}}&nbsp;&nbsp;&nbsp;ยี่ห้อ : {{c.Brand}}&nbsp;&nbsp;&nbsp;รุ่น : {{c.Model}}&nbsp;&nbsp;&nbsp;สี : {{c.Color}}&nbsp;&nbsp;&nbsp;ซีซี : {{c.CC}}</mat-label>
+                                <mat-label>เลขทะเบียน : {{c.Reg_No}}&nbsp;&nbsp;&nbsp;</mat-label>
+                            </mat-card-subtitle>
+                            <mat-card-actions align="start">
+                                <button mat-raised-button>Basic</button>
+                                <button mat-raised-button color="primary">เพิ่ม/แก้ไข</button>
+                                <button mat-raised-button color="accent">เบิกเล่ม</button>
+                                <button mat-raised-button color="warn">คืนเล่ม</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+         </mat-accordion>
+    </div>
+</div>
+
+<div style="display: none;">
+    <div style="display: none;">
+        <table id="excel-table">
+            <thead>
+                <tr colspan="11">
+                    <label></label>
+                </tr>
+                <tr>
+                    <th>ลำดับที่</th>
+                    <th>เลขสัญญา</th>
+                    <th>ชื่อ-สกุล(ลูกค้า)</th>
+                    <th>รุ่นรถ</th>
+                    <th>เลขเครื่อง</th>
+                    <th>เลขตัวถัง</th>
+                    <th>วันที่ทำสัญญา(วันที่อนุมัติ)</th>
+                    <th>คงค้าง(จำนวนวันที่คงค้าง)</th>
+                    <th>ผู้ขาย</th>
+                    <th>ตัวแทน(ผู้ออกใบกำกับภาษี)</th>
+                    <th>สาขา(บริษัท)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of fCardInfoTemp;let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{p.Contact_No}}</td>
+                    <td>{{p.Cust_Name}}&nbsp;&nbsp;&nbsp;{{p.Cust_Sname}}</td>
+                    <td>{{p.Model}}</td>
+                    <td>{{p.Engi_No}}</td>
+                    <td>{{p.Chassis_No}}</td>
+                    <td>{{p.Contact_Date}}</td>
+                    <td>{{p.Outstanding}}</td>
+                    <td>{{p.Sale}}</td>
+                    <td>{{p.Tax}}</td>
+                    <td>{{p.Branch}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+  <!-- <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource" (scroll)="onTableScroll($event)" >รายงานเล่มทะเบียนค้างรับประจำวันที่
+            <ng-container matColumnDef="No">
+                <mat-header-cell *matHeaderCellDef> ลำดับที่ </mat-header-cell>
+                <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="ContactNo">
+                <mat-header-cell *matHeaderCellDef> เลขสัญญา </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef> ชื่อ-สกุล<br>(ลูกค้า) </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Model">
+                <mat-header-cell *matHeaderCellDef> รุ่นรถ </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Chassis">
+                <mat-header-cell *matHeaderCellDef> เลขเครื่อง </mat-header-cell>
+                <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="VIN">
+                <mat-header-cell *matHeaderCellDef> เลขตัวถัง </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="ContactDate">
+                <mat-header-cell *matHeaderCellDef> วันที่ทำสัญญา<br>(วันที่อนุมัติ) </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="OutStanding">
+                <mat-header-cell *matHeaderCellDef> คงค้าง<br>(จำนวนวันคงค้าง) </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Sale">
+                <mat-header-cell *matHeaderCellDef> ผู้ขาย </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Tax">
+                <mat-header-cell *matHeaderCellDef> ตัวเเทน<br>(ผู้ออกใบกำกับภาษี) </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Branch">
+                <mat-header-cell *matHeaderCellDef> สาขา<br>(บริษัท) </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns; let i= index" (click)="selectedRow(row)"></mat-row>
+        </mat-table>
+    
+        <button mat-raised-button color="primary" (click)="onDownload()">DOWNLOAD</button>
+    
+    </div> -->
+  
+  

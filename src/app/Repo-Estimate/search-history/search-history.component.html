@@ -1,0 +1,68 @@
+<div *ngIf="Global.IsPermission=='Y'" >
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <button mat-icon-button>
+          <mat-icon>logout</mat-icon>
+        </button>
+    </mat-toolbar>
+    
+    <div class="container" >
+        <div style="position: sticky;top: 0;z-index:10;background-color: #ffffff;">
+            <div style="text-align: center;padding-top: 20px;">
+                <!-- background-image: linear-gradient(to right, red , yellow); -->
+                <label style="font-size: 40px;color: #ff0000;">ประวัติการประเมินสภาพรถ</label>
+            </div>
+            <div class="filter" style="border-bottom: 1px solid #000000;">
+                <mat-form-field appearance="outline">
+                    <mat-label>เลขสัญญา</mat-label>
+                    <input matInput placeholder="เลขสัญญา" [(ngModel)]="fSearch.Contact" (focus)="onFocus(1)" >
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>เลขทะเบียน</mat-label>
+                    <input matInput placeholder="เลขทะเบียน" [(ngModel)]="fSearch.RegNo" (focus)="onFocus(2)">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>ชื่อลูกค้า</mat-label>
+                    <input matInput placeholder="ชื่อลูกค้า" [(ngModel)]="fSearch.CustomerName" (focus)="onFocus(3)">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>นามสกุล</mat-label>
+                    <input matInput placeholder="นามสกุล" [(ngModel)]="fSearch.CustomerLname" (focus)="onFocus(3)">
+                </mat-form-field>
+        
+                <button style="width: 120px;height: 50px" mat-raised-button color="primary" (click)="onSeach(0)">ค้นหา</button>
+            </div>
+        </div>
+    
+        <div class="card-info">
+            <div *ngIf="fRepoHistory.length>0">
+                <!-- style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);" -->
+                <mat-card *ngFor="let p of fRepoHistory; let i = index;" >
+                    <mat-card-title>เลขสัญญาเช่าซื้อ : {{p.Contact_No}}</mat-card-title>
+                    <mat-card-content>Bill Code : {{p.Bill_Code}} , Bill Sub : {{p.Bill_Sub}}</mat-card-content>
+                    <mat-card-content>Status : {{p.Ac_Status}}</mat-card-content>
+                    <mat-card-content>ชื่อลูกค้า : {{p.Customer_Name}}   นามสกุลลูกค้า : {{p.Customer_Lname}}</mat-card-content>
+                    <mat-card-content>จุดจอดโกดัง : {{p.Warehouse_Stop}}</mat-card-content>
+                    <mat-card-content>วันที่ยึด : {{p.Occupy_Date}}</mat-card-content>
+                    <mat-card-content>วันที่ประเมิน : {{p.Maker_Date}}</mat-card-content>
+                    <mat-card-content>ชื่อผู้ประเมิน : {{p.Maker_Name}}</mat-card-content>
+                    <mat-card-content>วันที่อนุมัติ : {{p.Checker_Date}}</mat-card-content>
+                    <mat-card-content>ชื่อผู้อนุมัติ : {{[p.Checker_Name]}}</mat-card-content>
+                    <mat-card-content>ดูข้อมูล : <button mat-button (click)="goRoute(i)"><mat-icon color="primary">search</mat-icon></button></mat-card-content>
+                </mat-card>
+            </div>
+            <div *ngIf="fRepoHistory.length==0" style="margin-top: 100px;">
+                <div style="text-align: center;font-size: 30px;margin-top: 20px;">ไม่พบข้อมูล</div>
+            </div>
+    
+            <mat-paginator #paginator [length]="fPageLength" [pageSize]="5" aria-label="Select page" (page)="onPaginateChange($event)">
+            </mat-paginator>
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,56 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+mat-toolbar{
+    height: 2em;
+}
+
+.container{
+    width: 80%;
+}
+
+mat-card{
+    background-color: #F5F5F5;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+mat-form-field{
+    min-width: 200px;
+    max-width: 80%;
+}
+
+::ng-deep .mat-paginator-page-size{
+    display: none !important;
+}
+
+/* ::ng-deep .mat-paginator-range-label{
+    display: none !important;
+} */
+
+@media (min-width:1251px) {
+    .filter{
+        margin-top: 2em;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width:1250px) {
+    .filter{
+        margin-top: 2em;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width:1000px) {
+    .filter{
+        margin-top: 2em;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
